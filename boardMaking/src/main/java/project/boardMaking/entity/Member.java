@@ -1,10 +1,11 @@
 package project.boardMaking.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -18,15 +19,27 @@ public class Member extends DateAuditing {
     private String email;
     @Column(length = 50, nullable = false)
     private String name;
+    @Column(length = 200, nullable = false)
+    private String password;
     @Column(length = 20, nullable = false, unique = true)
     private String phone;
     @Column(length = 30, nullable = false)
     private String nickname;
 
+    @ElementCollection
+    private List<String> roles;
+
+    public void changeRole(List<String> roles) {
+        this.roles = roles;
+    }
+
     //Member 생성자
-    public Member(String email, String name, String phone, String nickname) {
+    @Builder
+    public Member(Long memberId, String email, String name, String password,String phone, String nickname) {
+        this.memberId = memberId;
         this.email = email;
         this.name = name;
+        this.password = password;
         this.phone = phone;
         this.nickname = nickname;
     }
@@ -35,4 +48,7 @@ public class Member extends DateAuditing {
     private List<Article> articles;
 
 
+    public void encodePassword(String encode) {
+        this.password = encode;
+    }
 }
