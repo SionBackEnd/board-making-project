@@ -48,6 +48,7 @@ public class HelloUserDetailsServiceV3 implements UserDetailsService {
                     .password(findMember.getPassword())
                     .phone(findMember.getPhone())
                     .nickname(findMember.getNickname())
+                    .roles(findMember.getRoles())
                     .build();
         }
 

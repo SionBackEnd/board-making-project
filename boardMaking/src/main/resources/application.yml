@@ -32,3 +32,8 @@ server:
 mail:
   address:
     admin: admin@gmail.com
+
+jwt:
+  secret-key: baekSiOn
+  access: 30
+  refresh: 420

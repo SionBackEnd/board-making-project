@@ -26,7 +26,7 @@ public class Member extends DateAuditing {
     @Column(length = 30, nullable = false)
     private String nickname;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
 
     public void changeRole(List<String> roles) {
@@ -35,13 +35,14 @@ public class Member extends DateAuditing {
 
     //Member 생성자
     @Builder
-    public Member(Long memberId, String email, String name, String password,String phone, String nickname) {
+    public Member(Long memberId, String email, String name, String password,String phone, String nickname,List<String>roles) {
         this.memberId = memberId;
         this.email = email;
         this.name = name;
         this.password = password;
         this.phone = phone;
         this.nickname = nickname;
+        this.roles = roles;
     }
 
     @OneToMany(mappedBy = "member")
@@ -50,5 +51,10 @@ public class Member extends DateAuditing {
 
     public void encodePassword(String encode) {
         this.password = encode;
+    }
+
+    public enum MemberRole {
+        ROLE_USER,
+        ROLE_ADMIN
     }
 }
